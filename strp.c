@@ -62,7 +62,7 @@ size_t Str_search(const char *pcSrc, const char *subSrc)
     size_t uLength = Str_getLength(pcSrc);
     size_t sLength = Str_getLength(subSrc);
     assert(uLength >= sLength);
-    size_t found = SIZE_MAX;
+    size_t found = (size_t)NULL;
     
     while (*subSrc != '\0') {
         if (*pcSrc == *subSrc) {

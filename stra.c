@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stddef.h>
-
+#include <stdlib.h>
 
 size_t Str_getLength(const char pcSrc[])
 {
@@ -70,14 +70,16 @@ size_t Str_search(const char pcSrc[], const char subSrc[])
     size_t uLength = Str_getLength(pcSrc);
     size_t sLength = Str_getLength(subSrc);
     assert(uLength >= sLength);
-    size_t found = SIZE_MAX;
+    size_t firstIndex = (size_t)NULL;
     size_t j = 0;
 
     for (size_t i = 0; i < uLength; i++) {
         if ((pcSrc[i] == subSrc[j]) && subSrc[j] != '\0') {
-            found = i;
+            if (firstIndex == (size_t)NULL) firstIndex = i;
             j++;
+        } else {
+            firstIndex = (size_t)NULL;
         }
     }
-    return found;
+    return firstIndex;
 }
