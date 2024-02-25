@@ -758,7 +758,7 @@ int main(int argc, char *argv[])
     testCopy();
     testConcat();
     testCompare();
-   testSearch();
+    testSearch();
 
    printf("End of %s.\n", argv[0]);
    return 0;
