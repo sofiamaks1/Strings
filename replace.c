@@ -1,12 +1,13 @@
 /*--------------------------------------------------------------------*/
 /* replace.c                                                          */
-/* Author: ???                                                        */
+/* Author: Sofia Makovetska                                                     */
 /*--------------------------------------------------------------------*/
 
 #include "str.h"
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
+#include <string.h>
 
 /*--------------------------------------------------------------------*/
 
@@ -17,13 +18,47 @@
    assumptions about the maximum number of replacements or the
    maximum number of characters in strings pcLine, pcFrom, or pcTo. */
 
-static size_t replaceAndWrite(const char *pcLine,
-                              const char *pcFrom, const char *pcTo)
+
+static size_t replaceAndWrite(const char *pcLine, const char *pcFrom, const char *pcTo)
 {
-   /* Insert your code here. */
+    assert(pcLine != NULL && pcFrom != NULL && pcTo != NULL);
+    size_t repls = 0;
+    
+    if (Str_getLength(pcFrom) < 1) { // check if empty string
+        printf("%s", pcLine);
+        return 0;
+    }
+    size_t firstIndex;
+    // loop until all occurrences of pcFrom in pcLine replaced
+    while ((firstIndex = *Str_search(pcLine, pcFrom)) != SIZE_MAX) {
+        char *new = malloc(Str_getLength(pcLine) + Str_getLength(pcTo) + 1);
+        if (new == NULL) {
+            fprintf(stderr, "Memory allocation failed\n");
+            exit(EXIT_FAILURE);
+        }
+        
+        // Copy the part before pcFrom
+        Str_copy(pcLine, new);
+        new[firstIndex] = '\0'; // Null-terminate the substring
+
+        // Concatenate pcTo
+        Str_concat(new, pcTo);
+
+        // Concatenate the rest of the string after pcFrom
+        Str_concat(new, pcLine + firstIndex + Str_getLength(pcFrom));
+
+        // Update pcLine to the new string
+        pcLine = new;
+
+        // Free the memory
+        free(new);
+        repls++;
+    }
+    printf("%s", pcLine);
+    
+    return repls;
 }
 
-/*--------------------------------------------------------------------*/
 
 /* If argc is unequal to 3, then write an error message to stderr and
    return EXIT_FAILURE.  Otherwise...
@@ -36,6 +71,7 @@ static size_t replaceAndWrite(const char *pcLine,
    Assume that no line of stdin consists of more than MAX_LINE_SIZE-1
    characters. */
 
+
 int main(int argc, char *argv[])
 {
    enum {MAX_LINE_SIZE = 4096};
@@ -46,8 +82,7 @@ int main(int argc, char *argv[])
    char *pcTo;
    size_t uReplaceCount = 0;
 
-   if (argc != PROPER_ARG_COUNT)
-   {
+   if (argc != (PROPER_ARG_COUNT + 1)) {
       fprintf(stderr, "usage: %s fromstring tostring\n", argv[0]);
       return EXIT_FAILURE;
    }
@@ -55,9 +90,10 @@ int main(int argc, char *argv[])
    pcFrom = argv[1];
    pcTo = argv[2];
 
-   while (fgets(acLine, MAX_LINE_SIZE, stdin) != NULL)
-      /* Insert your code here. */
+   while (fgets(acLine, MAX_LINE_SIZE, stdin) != NULL) {
+      uReplaceCount += replaceAndWrite(acLine, pcFrom, pcTo);
+   }
 
-   fprintf(stderr, "%lu replacements\n", (unsigned long)uReplaceCount);
+   fprintf(stderr, "%zu replacements\n", uReplaceCount);
    return 0;
 }

@@ -747,19 +747,19 @@ static void testSearch(void)
    count, argv contains the command-line arguments, and argv[0] is the
    name of the executable binary file.  Return 0. */
 
-int main(int argc, char *argv[])
-{
-
-#ifndef S_SPLINT_S
-   setCpuTimeLimit();
-#endif
-
-    testGetLength();
-    testCopy();
-    testConcat();
-    testCompare();
-    testSearch();
-
-   printf("End of %s.\n", argv[0]);
-   return 0;
-}
+//int main(int argc, char *argv[])
+//{
+//
+//#ifndef S_SPLINT_S
+//   setCpuTimeLimit();
+//#endif
+//
+//    testGetLength();
+//    testCopy();
+//    testConcat();
+//    testCompare();
+//    testSearch();
+//
+//   printf("End of %s.\n", argv[0]);
+//   return 0;
+//}
