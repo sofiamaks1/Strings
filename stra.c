@@ -20,20 +20,20 @@ size_t Str_getLength(const char pcSrc[])
    return uLength;
 }
 
-size_t Str_copy(const char pcSrc[], char src[])
+char *Str_copy(char pcSrc[], const char src[])
 {
     assert(pcSrc != NULL && src != NULL);
-    size_t uLength = Str_getLength(pcSrc);
+    size_t uLength = Str_getLength(src);
 
     for (size_t i = 0; i < uLength; i++) {
-        src[i] = pcSrc[i];
+        pcSrc[i] = src[i];
     }
-    src[uLength] = '\0';
+    pcSrc[uLength] = '\0';
 
-    return uLength;
+    return pcSrc;
 }
 
-size_t Str_concat(char pcSrc[], const char subSrc[])
+char *Str_concat(char pcSrc[], const char subSrc[])
 {
     assert(pcSrc != NULL && subSrc != NULL);
     size_t uLength = Str_getLength(pcSrc);
@@ -46,7 +46,7 @@ size_t Str_concat(char pcSrc[], const char subSrc[])
         pcSrc[uLength + i] = subSrc[i];
     }
     pcSrc[totalLength] = '\0';
-    return totalLength;
+    return pcSrc;
 }
 
 size_t Str_compare(const char pcSrc[], const char subSrc[])
@@ -63,23 +63,28 @@ size_t Str_compare(const char pcSrc[], const char subSrc[])
     return pcSrc[i] - subSrc[i];
 }
 
-size_t Str_search(const char pcSrc[], const char subSrc[])
+
+char *Str_search(const char pcSrc[], const char subSrc[])
 {
 
     assert(pcSrc != NULL && subSrc != NULL);
     size_t uLength = Str_getLength(pcSrc);
     size_t sLength = Str_getLength(subSrc);
-    assert(uLength >= sLength);
-    size_t firstIndex = (size_t)NULL;
+    char *res;
+    if (sLength == 0) {
+        return (char *)pcSrc;
+    }
     size_t j = 0;
-
+   
     for (size_t i = 0; i < uLength; i++) {
-        if ((pcSrc[i] == subSrc[j]) && subSrc[j] != '\0') {
-            if (firstIndex == (size_t)NULL) firstIndex = i;
-            j++;
-        } else {
-            firstIndex = (size_t)NULL;
+        if (pcSrc[i] != subSrc[j]) {
+            continue;
+        }
+        res = (char *)&pcSrc[i];
+        while (j < sLength) {
+            if (subSrc[j] == '\0') return res;
         }
     }
-    return firstIndex;
+    return NULL;
 }
+

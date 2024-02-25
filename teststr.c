@@ -149,12 +149,7 @@ static void testCopy(void)
       const char acSrc[] = {'\0', 's'};
       char acDest1[] = {'d', 'd'};
       char acDest2[] = {'d', 'd'};
-      printf("attenton everybody", acDest1);
-      printf("jbj.mnj");
-      printf("\n");
       pcResult = Str_copy(acDest1, acSrc);
-      printf("THIS IS WHAT YOU LOOKING FOR!!!", pcResult);
-      printf("jbj.mnj");
       ASSURE(pcResult == acDest1);
       (void)strcpy(acDest2, acSrc);
       ASSURE(memcmp(acDest1, acDest2, sizeof(acDest1)) == 0);
@@ -759,10 +754,10 @@ int main(int argc, char *argv[])
    setCpuTimeLimit();
 #endif
 
-   // testGetLength();
-   // testCopy();
-   // testConcat();
-   // testCompare();
+    testGetLength();
+    testCopy();
+    testConcat();
+    testCompare();
    testSearch();
 
    printf("End of %s.\n", argv[0]);
