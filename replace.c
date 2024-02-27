@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
-
+#include <string.h>
 /*--------------------------------------------------------------------*/
 
 /* If pcFrom is the empty string, then write string pcLine to stdout
@@ -17,13 +17,11 @@
    assumptions about the maximum number of replacements or the
    maximum number of characters in strings pcLine, pcFrom, or pcTo. */
 
-#include <string.h>
-
 static size_t replaceAndWrite(const char *pcLine, const char *pcFrom, const char *pcTo)
 {
     assert(pcLine != NULL && pcFrom != NULL && pcTo != NULL);
     size_t repls = 0;
-    size_t lengthFrom = strlen(pcFrom);
+    size_t lengthFrom = Str_getLength(pcFrom);
     const char *pNext;
 
     if (lengthFrom == 0) {
