@@ -1,4 +1,3 @@
-
 #include "str.h"
 #include <stdio.h>
 #include <assert.h>
@@ -58,32 +57,6 @@ size_t Str_compare(const char *pcSrc, const char *subSrc)
     return *pcSrc - *subSrc;
 }
 
-//char *Str_search(const char pcSrc[], const char subSrc[])
-//{
-//
-//    assert(pcSrc != NULL && subSrc != NULL);
-//    size_t uLength = Str_getLength(pcSrc);
-//    size_t sLength = Str_getLength(subSrc);
-//    char *res;
-//    if (sLength == 0) {
-//        return (char *)pcSrc;
-//    }
-//    size_t j = 0;
-//
-//    for (size_t i = 0; i < uLength; i++) {
-//        if (pcSrc[i] != subSrc[j]) {
-//            continue;
-//        }
-//        res = (char *)&pcSrc[i];
-//        while (j < sLength) {
-//            if (subSrc[j] == '\0') return res;
-//        }
-//    }
-//    return NULL;
-//}
-//
-
-
 char *Str_search(const char *pcSrc, const char *subSrc)
 {
     assert(pcSrc != NULL && subSrc != NULL);
@@ -96,17 +69,17 @@ char *Str_search(const char *pcSrc, const char *subSrc)
     while (*pcSrc != '\0') {
         const char *pcTempo = pcSrc; // to keep track ofstart of the match
         const char *subTempo = subSrc;
-        
+
         while (*subTempo == *pcTempo && *subTempo != '\0') {
             pcTempo++;
             subTempo++;
         }
-        
+
         // when the entire substring matching
         if (*subTempo == '\0') {
             return (char *)pcSrc;
         }
-    
+
         pcSrc++;
     }
     return NULL;

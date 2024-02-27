@@ -1,10 +1,3 @@
-//
-//  stra.c
-//  StringModule
-//
-//  Created by Sofia Makovetska on 21.02.2024.
-//
-
 #include "str.h"
 #include <stdio.h>
 #include <assert.h>
@@ -75,7 +68,7 @@ char *Str_search(const char pcSrc[], const char subSrc[])
         return (char *)pcSrc;
     }
     size_t j = 0;
-   
+
     for (size_t i = 0; i < uLength; i++) {
         if (pcSrc[i] != subSrc[j]) {
             continue;
