@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
-#include <string.h>
 /*--------------------------------------------------------------------*/
 
 /* If pcFrom is the empty string, then write string pcLine to stdout
