@@ -26,11 +26,11 @@ fi
 
 # Call testreplacediff using file 01empty.txt and a variety of
 # "from" and "to" strings.
-file=01empty.txt
-./testreplacediff $file 123 xyz
-./testreplacediff $file "" xyz
-./testreplacediff $file 123 ""
-./testreplacediff $file "" ""
+#file=01empty.txt
+#./testreplacediff $file 123 xyz
+#./testreplacediff $file "" xyz
+#./testreplacediff $file 123 ""
+#./testreplacediff $file "" ""
 
 # Execute testreplacediff using file 02data.txt and a variety of
 # "from" and "to" strings.

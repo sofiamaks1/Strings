@@ -17,28 +17,31 @@
    assumptions about the maximum number of replacements or the
    maximum number of characters in strings pcLine, pcFrom, or pcTo. */
 
-static size_t replaceAndWrite(const char *pcLine, const char *pcFrom, const char *pcTo) {
+#include <string.h>
+
+static size_t replaceAndWrite(const char *pcLine, const char *pcFrom, const char *pcTo)
+{
     assert(pcLine != NULL && pcFrom != NULL && pcTo != NULL);
     size_t repls = 0;
+    size_t lengthFrom = strlen(pcFrom);
+    const char *pNext;
 
-    if (Str_getLength(pcFrom) == 0) {
-        // pcFrom is the empty string, just print pcLine
+    if (lengthFrom == 0) {
         printf("%s", pcLine);
         return 0;
     }
 
-    while ((pcLine = Str_search(pcLine, pcFrom)) != NULL) {
+    while ((pNext = strstr(pcLine, pcFrom)) != NULL) {
         // Print the part before pcFrom
-        const char *occurrence = pcLine;
-        while (pcLine != occurrence) {
+        while (pcLine != pNext) {
             putchar(*pcLine++);
         }
         
         // Print pcTo
         printf("%s", pcTo);
 
-        // Skip pcFrom
-        pcLine += Str_getLength(pcFrom);
+        // Skip over pcFrom
+        pcLine += lengthFrom;
 
         repls++;
     }
