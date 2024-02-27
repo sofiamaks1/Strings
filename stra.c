@@ -49,11 +49,13 @@ size_t Str_compare(const char pcSrc[], const char subSrc[])
 
     while (pcSrc[i] != '\0' && subSrc[i] != '\0') {
         if (pcSrc[i] != subSrc[i]) {
-            return pcSrc[i] - subSrc[i];
+            size_t res =  pcSrc[i] - subSrc[i];
+            return (size_t) res;
         }
         i++;
     }
-    return pcSrc[i] - subSrc[i];
+    size_t res =  pcSrc[i] - subSrc[i];
+    return (size_t) res;
 }
 
 
@@ -61,21 +63,17 @@ char *Str_search(const char pcSrc[], const char subSrc[])
 {
     
     assert(pcSrc != NULL && subSrc != NULL);
-    size_t uLength = Str_getLength(pcSrc);
-    size_t sLength = Str_getLength(subSrc);
     char *res;
     if (subSrc[0] == '\0') {
         return (char *)pcSrc;
-        
-        
-        for (size_t i = 0; pcSrc[i] != '\0'; i++) {
-            size_t j = 0;
-            if (pcSrc[i] != subSrc[j]) {
-                continue;
-            }
-            res = (char *)&pcSrc[i];
-            if (subSrc[j] == '\0') return res;
+    }
+    for (size_t i = 0; pcSrc[i] != '\0'; i++) {
+        size_t j = 0;
+        if (pcSrc[i] != subSrc[j]) {
+            continue;
         }
+        res = (char *)&pcSrc[i];
+        if (subSrc[j] == '\0') return res;
     }
     return NULL;
 }
